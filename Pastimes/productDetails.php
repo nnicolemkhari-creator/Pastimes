@@ -17,7 +17,7 @@ if ($id == 1) {
     echo "<p>Condition: Good</p>";
 }
 elseif ($id == 2) {
-    echo "<h1>Black Hoodie</h1>";
+    echo "<h1>Nude Hoodie</h1>";
     echo "<img src='images/hoodie1.jpg' width='300'>";
     echo "<p>Price: R350</p>";
     echo "<p>Condition: Excellent</p>";

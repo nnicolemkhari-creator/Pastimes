@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Products</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: Arial;
@@ -25,6 +26,21 @@
     </style>
 </head>
 <body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="logo">P</div>
+    <h2 class="brand">Pastimes</h2>
+
+    <input type="text" placeholder="Search for items, brands, or sellers..." class="search">
+
+    <nav>
+        <a href="index.php">Home</a>
+        <a href="sell.php" class="sell-btn">+ Sell</a>
+        <a href="cart.php">🛒</a>
+        <a href="login.php">👤</a>
+    </nav>
+</header>
 
 <h1>Available Clothing</h1>
 

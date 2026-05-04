@@ -73,9 +73,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <div class="images">
-        <img src="img/jacket.jpg">
-        <img src="img/model.jpg">
-        <img src="img/bag.jpg">
+        <img src="images/jacket.jpg">
+        <img src="images/model2.jpg">
+        <img src="images/bag.jpg">
     </div>
 </div>
 </body>

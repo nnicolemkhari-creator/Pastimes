@@ -16,7 +16,7 @@ $users = $conn->query("SELECT * FROM tblUser WHERE isVerified=0");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pastimes - Verify Users</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div class="container admin-container">

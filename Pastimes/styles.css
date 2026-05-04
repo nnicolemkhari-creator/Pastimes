@@ -1,19 +1,27 @@
+/* --- GLOBAL BASE STYLES --- */
 body {
     margin: 0;
+    padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
+    background-color: #ff3333; /* Priority Red Theme */
+    color: white;
+    display: flex;
+    flex-direction: column; /* Allows navbar and container to stack */
+    min-height: 100vh;
 }
 
-/* NAVBAR */
+/* --- NAVIGATION (Snippet 1) --- */
 .navbar {
     display: flex;
     align-items: center;
     padding: 15px 40px;
     background: white;
     gap: 15px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.logo {
+.logo-nav { /* Renamed to avoid conflict with absolute logo */
     background: #e60023;
     color: white;
     font-weight: bold;
@@ -45,38 +53,77 @@ nav a {
     border-radius: 8px;
 }
 
-/* HERO SECTION */
-.hero {
+/* --- LAYOUT CONTAINERS --- */
+.container {
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    text-align: center;
+    margin: auto; /* Centers container on page */
+}
+
+.admin-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+/* --- HEADER & TEXT --- */
+.logo {
+    position: absolute;
+    top: -50px;
+    left: 0;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-style: italic;
+    margin-bottom: 0;
+}
+
+.subtitle {
+    font-style: italic;
+    margin-bottom: 50px;
+}
+
+/* --- FORM & INPUTS --- */
+form {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 60px;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
 }
 
-.hero-text {
-    max-width: 500px;
+label {
+    font-weight: bold;
+    font-style: italic;
+    margin-bottom: 5px;
 }
 
-.hero-text h1 {
-    font-size: 50px;
-    margin-bottom: 20px;
+input {
+    background-color: #d1d1d1;
+    border: 1px solid #999;
+    border-radius: 10px;
+    padding: 15px;
+    width: 250px;
+    margin-bottom: 25px;
+    font-style: italic;
 }
 
-.hero-text p {
-    color: #555;
-    margin-bottom: 20px;
-}
-
-.buttons .btn {
-    text-decoration: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    margin-right: 10px;
-}
-
-.primary {
-    background: #e60023;
-    color: white;
+/* --- BUTTONS --- */
+button, .primary-btn {
+    background-color: #d1d1d1;
+    border: 1px solid #999;
+    border-radius: 10px;
+    padding: 15px 60px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-style: italic;
+    cursor: pointer;
+    margin: 40px auto 10px auto;
+    display: block;
 }
 
 .secondary {
@@ -84,7 +131,37 @@ nav a {
     color: black;
 }
 
-/* IMAGES */
+/* --- IMAGE GALLERIES & HERO --- */
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 60px;
+}
+
+.images {
+    position: absolute;
+    right: 0;
+    top: 150px;
+    width: 400px;
+    height: 300px;
+}
+
+.images img {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 2px solid white;
+}
+
+/* Overlapping Logic */
+.images img:nth-child(1) { top: 0; left: 0; z-index: 1; }
+.images img:nth-child(2) { top: 60px; left: 110px; z-index: 3; width: 140px; height: 180px; }
+.images img:nth-child(3) { top: -20px; left: 220px; z-index: 2; }
+
+/* Static Hero Images (Snippet 1 style) */
 .hero-images {
     display: flex;
     gap: 20px;
@@ -97,4 +174,57 @@ nav a {
 
 .img1 {
     transform: translateY(20px);
+}
+
+/* --- TABLES & ADMIN --- */
+.table-section {
+    background-color: #d1d1d1;
+    border-radius: 15px;
+    padding: 20px;
+    color: #333;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-style: italic;
+}
+
+.custom-table th {
+    border-bottom: 2px solid #999;
+    padding: 10px;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.custom-table td {
+    padding: 15px 10px;
+    border-bottom: 1px solid #bbb;
+}
+
+.verify-btn {
+    background-color: #ff3333;
+    color: white;
+    padding: 5px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.verify-btn:hover {
+    background-color: #cc0000;
+}
+
+/* --- FOOTER LINKS --- */
+.bottom-link {
+    margin-top: 20px;
+    font-style: italic;
+}
+
+.bottom-link a {
+    color: white;
+    text-decoration: underline;
 }

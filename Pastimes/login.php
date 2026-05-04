@@ -4,7 +4,6 @@ include 'DBConn.php';
 session_start();
 
 $error = "";
-$username = $_POST['username'] ?? "";
 $email    = $_POST['email'] ?? "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -46,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Pastimes Login</title>
 <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="red-theme">
 <div class="container clearfix">
     <div class="logo">Pastimes</div>
 
@@ -72,11 +71,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
-    <div class="images">
-        <img src="images/jacket.jpg">
-        <img src="images/model2.jpg">
-        <img src="images/bag.jpg">
-    </div>
 </div>
 </body>
 </html>

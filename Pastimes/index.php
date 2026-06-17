@@ -17,6 +17,7 @@
     <nav>
         <a href="#">Explore</a>
         <a href="sell.php" class="sell-btn">+ Sell</a>
+        <a href="admin_login.php">Admin</a>
         <a href="#">❤️</a>
         <a href="#">🛒</a>
         <a href="login.php">👤</a>

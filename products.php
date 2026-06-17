@@ -29,7 +29,6 @@
 
 <!-- NAVBAR -->
 <header class="navbar">
-    <div class="logo">P</div>
     <h2 class="brand">Pastimes</h2>
 
     <input type="text" placeholder="Search for items, brands, or sellers..." class="search">
@@ -44,6 +43,7 @@
 
 <h1>Available Clothing</h1>
 
+<div class="container">
 <div class="product">
 
     <a href="productDetails.php?id=1">
@@ -52,7 +52,11 @@
 
         <h3>Vintage Shirt</h3>
 
+        <p>Description: Stylish second-hand vintage shirt</p>
+
         <p>Brand: Nike</p>
+
+        <p>Condition: Excellent </p>
 
         <p>R250</p>
 
@@ -62,13 +66,20 @@
 
 </div>
 
+<div class="container">
 <div class="product">
 
     <a href="productDetails.php?id=2">
 
         <img src="images/hoodie1.jpg">
 
-        <h3>Black Hoodie</h3>
+        <h3>Beige Hoodie</h3>
+
+        <p> Description: Comfortable black hoodie perfect for everyday wear.</p>
+
+        <p>Brand: Sumwon</p>
+
+        <p>Condition: Very Good </p>
 
         <p>R350</p>
 
@@ -78,6 +89,7 @@
 
 </div>
 
+<div class="container">
 <div class="product">
 
     <a href="productDetails.php?id=3">
@@ -86,14 +98,65 @@
 
         <h3>White Sneakers</h3>
 
-        <p>Brand: Nike</p>
+        <p> Description: Clean white sneakers with a modern sporty look.</p>
+
+        <p>Brand: New Balance </p>
+
+        <p>Condition: Like New </p>
 
         <p>R700</p>
 
     </a>
 
     <button>Add To Cart</button>
+
 </div>
+
+<div class="container">
+<div class="product">
+
+    <a href="productDetails.php?id=4">
+
+        <img src="images/jacket1.jpg">
+
+        <h3>Leather Jacket</h3>
+
+        <p> Description: Burgundy leather jacket suitable for all seasons.</p>
+
+        <p>Brand: Zara </p>
+
+        <p>Condition: Excellent </p>
+
+        <p>R450</p>
+
+    </a>
+
+    <button>Add To Cart</button>
+</div>
+
+<div class="container">
+<div class="product">
+
+    <a href="productDetails.php?id=5">
+
+        <img src="images/jeans1.jpg">
+
+        <h3>Jeans</h3>
+
+        <p> Description: Stylish denim jeans in great condition.</p>
+
+        <p>Brand: Levis </p>
+
+        <p>Condition: Very Good </p>
+
+        <p>R300</p>
+
+    </a>
+
+    <button>Add To Cart</button>
+</div>
+
+
 
 </div>
 

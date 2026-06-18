@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +17,7 @@
 
     <nav>
         <a href="#">Explore</a>
+        <a href="messages.php">Messages</a>
         <a href="sell.php" class="sell-btn">+ Sell</a>
         <a href="admin_login.php">Admin</a>
         <a href="#">❤️</a>

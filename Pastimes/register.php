@@ -1,70 +1,66 @@
 <?php
-  include 'DBConn.php';
+include 'DBConn.php';
 
-  $message = "";
+$message = "";
 
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $fullName = $_POST["fullName"];  
-    $username = $_POST["username"];
-    $email = $_POST["email"];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $fullName = trim($_POST["fullName"]);
+    $username = trim($_POST["username"]);
+    $email    = filter_var($_POST["email"], FILTER_VALIDATE_EMAIL);
     $password = $_POST["password"];
-    
-    $hash = password_hash($password, PASSWORD_DEFAULT);
 
-    $stmt = $conn->prepare("INSERT INTO tbluser (fullName, username, email, password) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $fullName, $username, $email, $password);
-
-    if ($stmt->execute()) {
-      $message = "Registration successful! Pending verification approval from admin.";
+    if (!$email) {
+        $message = "Invalid email format.";
     } else {
-      $message = "Error: User may already exist.";
+        // THIS IS THE HASH STEP
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+
+        // Check if email exists
+        $check = $conn->prepare("SELECT userID FROM tblUser WHERE email=?");
+        $check->bind_param("s", $email);
+        $check->execute();
+        $check->store_result();
+
+        if ($check->num_rows > 0) {
+            $message = "Email already registered.";
+        } else {
+            // ✅ MAKE SURE TO USE $hash HERE
+            $stmt = $conn->prepare("INSERT INTO tblUser (fullName, username, email, password, role, isVerified) VALUES (?, ?, ?, ?, 'user', 0)");
+            $stmt->bind_param("ssss", $fullName, $username, $email, $hash); // <--- HASH used, not plain password
+
+            if ($stmt->execute()) {
+                $message = "Registration successful! Awaiting admin approval.";
+            } else {
+                $message = "Something went wrong. Try again.";
+            }
+        }
     }
-  }
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-<head> 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pastimes Login</title>
-<link rel="stylesheet" href="styles.css">
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="container clearfix">
-    <div class="logo">Pastimes</div>
-
+<div class="container">
     <h1>Create Account</h1>
-    <p class="subtitle">Join the marketplace and start buying or selling today</p>
+    <p><?= $message ?></p>
 
-    <div class="form-section">
-        <form method="POST">
-            <label>Full Name:</label>
-            <input type="text" name="fullName" placeholder="Insert fullname" required>
-    
-            <label>Username:</label>
-            <input type="text" name="username" placeholder="create username" required>
+    <form method="POST">
+        <input type="text" name="fullName" placeholder="Full Name" required>
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Enter Password" required>
+        <button type="submit">Register</button>
+    </form>
 
-            <label>Email Address:</label>
-            <input type="email" name="email" placeholder="Enter your Email" required>
-
-            <label>Password:</label>
-            <input type="password" name="password" placeholder="Create your Password" required>
-
-            <button type="submit">Create Account</button>
-        </form>
-
-        <div class="bottom-link">
-            Already have an Account? <a href="login.php">Log in</a>
-        </div>
-    </div>
-
-    <div class="images">
-        <img src="images/jacket.jpg">
-        <img src="images/model.jpg">
-        <img src="images/bag.jpg">
-    </div>
+    <a href="login.php">Already have an account?</a>
 </div>
+
 </body>
 </html>

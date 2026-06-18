@@ -1,86 +1,166 @@
 <?php
-session_start(); // Important: Always at the top!
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+session_start();
+include 'DBConn.php';
 
-// Default values so the form doesn't error out if no product is found
-$name = "";
-$price = 0;
-$found = false;
+if (!isset($_GET['id'])) {
+    die("No product selected.");
+}
+
+$productID = (int)$_GET['id'];
+
+$stmt = $conn->prepare("
+    SELECT
+        p.*,
+        u.fullName
+    FROM tblProducts p
+    JOIN tblUser u
+    ON p.sellerID = u.userID
+    WHERE p.productID = ?
+");
+
+$stmt->bind_param("i", $productID);
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+if ($result->num_rows == 0) {
+    die("Product not found.");
+}
+
+$product = $result->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Product Details</title>
-    <link rel="stylesheet" href="styles.css">
+
+<title><?= htmlspecialchars($product['productName']) ?></title>
+
+<link rel="stylesheet" href="styles.css">
+
 </head>
+
 <body>
-<!-- NAVBAR -->
+
 <header class="navbar">
-    <div class="logo">P</div>
-    <h2 class="brand">Pastimes</h2>
 
-    <input type="text" placeholder="Search for items, brands, or sellers..." class="search">
+<div class="logo">P</div>
 
-    <nav>
-        <a href="index.php">Home</a>
-        <a href="sell.php" class="sell-btn">+ Sell</a>
-        <a href="products.php">❤️</a>
-        <a href="cart.php">🛒</a>
-        <a href="login.php">👤</a>
-    </nav>
+<h2 class="brand">Pastimes</h2>
+
+<input
+type="text"
+class="search"
+placeholder="Search...">
+
+<nav>
+
+<a href="index.php">Home</a>
+
+<a href="products.php">Products</a>
+
+<a href="sell.php" class="sell-btn">+ Sell</a>
+
+<a href="cart.php">🛒</a>
+
+</nav>
+
 </header>
 
-<div class="product-detail-container">
-    <?php
-    if ($id === 1) {
-        $name = "Vintage Shirt";
-        $price = 250;
-        $found = true;
-        echo "<h1>$name</h1>";
-        echo "<img src='images/shirt1.jpg' width='300'>";
-        echo "<p>Price: R$price</p>";
-        echo "<p>Condition: Good</p>";
-    }
-    elseif ($id === 2) {
-        $name = "Beige Hoodie";
-        $price = 350;
-        $found = true;
-        echo "<h1>$name</h1>";
-        echo "<img src='images/hoodie1.jpg' width='300'>";
-        echo "<p>Price: R$price</p>";
-        echo "<p>Condition: Excellent</p>";
-    }  
-    elseif ($id === 3) {
-        $name = "White Sneakers";
-        $price = 500;
-        $found = true;
-        echo "<h1>$name</h1>";
-        echo "<img src='images/shoes1.jpg' width='300'>";
-        echo "<p>Price: R$price</p>";
-        echo "<p>Condition: Like New</p>";
-    }
+<div class="details-container">
 
-    // --- THE UPDATED FORM SECTION ---
-    if ($found) {
-        ?>
-        <form method="POST" action="./cart_logic.php">
-            <input type="hidden" name="product_id" value="<?php echo $id; ?>">
-            <input type="hidden" name="product_name" value="<?php echo $name; ?>">
-            <input type="hidden" name="product_price" value="<?php echo $price; ?>">
-            
-            <br>
-            <!-- We keep the label "Buy Now" but give it the "add_to_cart" name for the PHP -->
-            <button type="submit" name="add_to_cart" class="primary-btn">
-                Buy Now
-            </button>
-        </form>
-        <?php
-    } else {
-        echo "<h1>Product not found</h1>";
-    }
-    ?>
+<img
+class="details-image"
+src="images/uploaded/<?= htmlspecialchars($product['image']) ?>">
+
+<div class="details-info">
+
+<h1><?= htmlspecialchars($product['productName']) ?></h1>
+
+<h2>Brand: <?= htmlspecialchars($product['brand']) ?></h2>
+
+<h3>Price: R<?= number_format($product['price'], 2) ?></h3>
+
+<p>
+
+<strong>Category:</strong>
+
+<?= htmlspecialchars($product['category']) ?>
+
+</p>
+
+<p>
+
+<strong>Condition:</strong>
+
+<?= htmlspecialchars($product['productCondition']) ?>
+
+</p>
+
+<p>
+
+<strong>Seller:</strong>
+
+<?= htmlspecialchars($product['fullName']) ?>
+
+</p>
+
+<p>
+
+<strong>Description</strong>
+
+</p>
+
+<p>
+
+<?= nl2br(htmlspecialchars($product['productDescription'])) ?>
+
+</p>
+
+<form action="cart_logic.php" method="POST">
+
+<input
+type="hidden"
+name="product_id"
+value="<?= $product['productID'] ?>">
+
+<input
+type="hidden"
+name="product_name"
+value="<?= htmlspecialchars($product['productName']) ?>">
+
+<input
+type="hidden"
+name="product_price"
+value="<?= $product['price'] ?>">
+
+<button
+type="submit"
+name="add_to_cart">
+
+Add To Cart
+
+</button>
+
+</form>
+
+<br>
+
+<a href="messages.php?productID=<?= $product['productID'] ?>">
+
+<button>
+
+Contact Seller
+
+</button>
+
+</a>
+
+</div>
+
 </div>
 
 </body>
+
 </html>

@@ -28,10 +28,22 @@ elseif ($id == 3) {
     echo "<p>Price: R500</p>";
     echo "<p>Condition: Like New</p>";
 }
+elseif ($id == 4) {
+    echo "<h1>Leather jacket</h1>";
+    echo "<img src='images/jacket1.jpg' width='300'>";
+    echo "<p>Price: R450</p>";
+    echo "<p>Condition: Excellent</p>";
+}
+elseif ($id == 5) {
+    echo "<h1>Jeans</h1>";
+    echo "<img src='images/jeans1.jpg' width='300'>";
+    echo "<p>Price: R300</p>";
+    echo "<p>Condition: Excellent</p>";
+}
 ?>
 
 <br><br>
-<button>Buy Now</button>
+<button>Add to cart</button>
 
 </body>
 </html>
